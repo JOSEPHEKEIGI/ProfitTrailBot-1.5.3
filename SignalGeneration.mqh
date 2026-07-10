@@ -2625,53 +2625,41 @@ bool FinalIntegrityGate(string symbol, int symbol_index, bool allow_range_mode,
 
    datetime now = TimeCurrent();
    double decay_factor = 1.0;  // Default: no decay
+   double pre_decay_conf = signal.ai_confidence;  // Confidence before temporal decay (fed to fusion)
    
    // ===== TIER 1C ENHANCEMENT: TEMPORAL SIGNAL DECAY CHECK =====
-   // Exponentially decay signal confidence based on age
-   // Fresh signals (0 bars): 100%, 5 bars: 90%, 15 bars: 70%, 30 bars: 45%, 60+ bars: 0% (expired)
+   // Smooth interpolated decay via CTemporalSignalDecay.
+   // Fresh (0 bars): 100%, 5: 90%, 15: 70%, 30: 45%, 60+: expired.
    if(signal.signal_time > 0)
    {
-      int signal_age_seconds = (int)(now - signal.signal_time);
       ENUM_TIMEFRAMES decay_tf = (signal.execution_tf != PERIOD_CURRENT ? signal.execution_tf : Signal_TF);
-      int tf_seconds = PeriodSeconds(decay_tf);
-      if(tf_seconds <= 0)
-         tf_seconds = 60;
 
-      int signal_bars = MathMax(0, signal_age_seconds / tf_seconds);
-       
-      // Decay curve: exponential falloff
-      decay_factor = 1.0;
-      if(signal_bars >= 60)
+      SSignalTimestamp sig_time;
+      sig_time.generation_time = signal.signal_time;
+      sig_time.confirmation_time = signal.signal_time;
+      sig_time.timeframe = (int)decay_tf;
+      sig_time.signal_shift = 0;
+      sig_time.is_valid = true;
+
+      SSignalDecayMetrics decay_metrics = CTemporalSignalDecay::CalculateDecay(sig_time, now, decay_tf);
+      decay_factor = decay_metrics.decay_factor;
+
+      if(decay_metrics.is_expired || decay_factor <= 0.0)
       {
-         decay_factor = 0.0;  // Expired
-      }
-      else if(signal_bars >= 30)
-      {
-         decay_factor = 0.45;  // 30 bars: 45%
-      }
-      else if(signal_bars >= 15)
-      {
-         decay_factor = 0.70;  // 15 bars: 70%
-      }
-      else if(signal_bars >= 5)
-      {
-         decay_factor = 0.90;  // 5 bars: 90%
-      }
-      // else: < 5 bars = 100% (1.0)
-      
-      if(decay_factor <= 0.0)
-      {
-         reason_out = "Tier 1C: Signal expired (age=" + IntegerToString(signal_bars) + " bars)";
+         reason_out = "Tier 1C: Signal expired (age=" +
+                      IntegerToString(decay_metrics.bars_since_generation) + " bars)";
          return false;
       }
-      
+
       // Apply decay to signal confidence
-      signal.ai_confidence *= decay_factor;
-      
+      signal.ai_confidence = CTemporalSignalDecay::ApplyDecayToConfidence(signal.ai_confidence, decay_metrics);
+
       if(g_Enable_Institutional_Debug)
-         Log(LOG_DEBUG, "CheckFinalIntegrityGate", symbol + 
-             " - Tier 1C temporal decay applied (bars=" + IntegerToString(signal_bars) +
+         Log(LOG_DEBUG, "FinalIntegrityGate", symbol +
+             " - Tier 1C temporal decay applied (bars=" +
+             IntegerToString(decay_metrics.bars_since_generation) +
              ", factor=" + DoubleToString(decay_factor, 2) +
+             ", pos=" + decay_metrics.decay_curve_position +
              ", new_conf=" + DoubleToString(signal.ai_confidence, 2) + ")");
    }
    // ===== END TIER 1C =====
@@ -2685,9 +2673,28 @@ bool FinalIntegrityGate(string symbol, int symbol_index, bool allow_range_mode,
                     signal.ai_agrees);
    bool kim_valid = (signal.origin == SIGNAL_ORIGIN_KIMANIZ);
    
-   double ict_conf = (ict_valid ? MathMax(0.5, signal.ai_confidence) : 0.3);
-   double ai_conf = signal.ai_confidence;
-   double kim_conf = (kim_valid ? MathMax(0.4, signal.ai_confidence) : 0.3);
+   // Adaptive confidence multipliers (volatility / AI-accuracy / session) are
+   // produced by the adaptive threshold calculator; apply their product so the
+   // fusion routing (execute flag + lot multiplier) reflects them.
+   SAdaptiveThresholds adaptive_ctx = g_threshold_calculator.GetAdaptiveThresholds(symbol, symbol_index);
+   double adaptive_conf_mult = adaptive_ctx.vol_adjustment_factor *
+                               adaptive_ctx.accuracy_adjustment_factor *
+                               adaptive_ctx.session_adjustment_factor;
+   adaptive_conf_mult = MathMax(0.80, MathMin(1.20, adaptive_conf_mult));
+
+   // Independent per-strategy confidences (pre temporal decay; decay is applied
+   // inside the fusion router). AI uses the threshold-aware contextual confidence
+   // from the raw buy-axis probability so BOTH-origin signals blend a genuinely
+   // different AI number against the ICT/structural composite.
+   double ai_axis_prob = (signal.ai_buy_probability >= 0.0 ? signal.ai_buy_probability : signal.ai_probability);
+   double ai_context_conf = CEnhancedAIDecision::GetContextualConfidence(symbol, symbol_index, ai_axis_prob);
+   if(ai_context_conf <= 0.0)
+      ai_context_conf = AIInferenceEngine::GetConfidence(signal.ai_probability);
+   double kim_base_conf = (signal.reversal_confidence > 0.0 ? signal.reversal_confidence : pre_decay_conf);
+
+   double ict_conf = (ict_valid ? MathMin(1.0, MathMax(0.35, pre_decay_conf) * adaptive_conf_mult) : 0.0);
+   double ai_conf  = (ai_valid  ? MathMin(1.0, MathMax(0.35, ai_context_conf) * adaptive_conf_mult) : 0.0);
+   double kim_conf = (kim_valid ? MathMin(1.0, MathMax(0.35, kim_base_conf) * adaptive_conf_mult) : 0.0);
    
    int fusion_sources = 0;
    if(ict_valid)
@@ -2697,15 +2704,35 @@ bool FinalIntegrityGate(string symbol, int symbol_index, bool allow_range_mode,
    if(kim_valid)
       fusion_sources++;
 
-   // Confidence decay has already been applied above. Only require confluence
-   // when more than one source actually participates in the fused decision.
+   // Only require confluence when more than one source actually participates.
    bool require_fusion_confluence = (fusion_sources >= 2);
    SConfidenceWeightedRoute fusion_route = CConfidenceFusionRouter::FuseSignalConfidences(
-      ict_valid, ict_conf, 1.0,
-      ai_valid,  ai_conf,  1.0,
-      kim_valid, kim_conf, 1.0,
+      ict_valid, ict_conf, decay_factor,
+      ai_valid,  ai_conf,  decay_factor,
+      kim_valid, kim_conf, decay_factor,
       require_fusion_confluence
    );
+
+   // Enhanced-decision cross-check: if the adaptive/enhanced AI decision layers
+   // disagree with the trade direction (or the AI signal is too weak to validate),
+   // damp the fused confidence rather than hard-blocking so structural conviction
+   // can still carry the trade.
+   if(ai_valid && signal.ai_buy_probability >= 0.0)
+   {
+      int contextual_dir = CEnhancedAIDecision::MakeContextualDecision(symbol, symbol_index, signal.ai_buy_probability);
+      int enhanced_dir = AIInferenceEngine::MakeEnhancedDecision(signal.ai_buy_probability);
+      bool ai_signal_valid = AIInferenceEngine::ValidateAISignal(signal.ai_buy_probability);
+      if(!ai_signal_valid ||
+         (contextual_dir != 0 && contextual_dir != signal.direction) ||
+         (enhanced_dir != 0 && enhanced_dir != signal.direction))
+      {
+         fusion_route.execution_confidence *= 0.85;
+         if(g_Enable_Institutional_Debug)
+            Log(LOG_DEBUG, "FinalIntegrityGate", symbol +
+                StringFormat(" - AI decision-layer caution: ctx=%d enh=%d valid=%s dir=%d",
+                             contextual_dir, enhanced_dir, (ai_signal_valid ? "Y" : "N"), signal.direction));
+      }
+   }
    
    // Apply fusion routing parameters to signal execution
    // Lot sizing from fusion confidence level
