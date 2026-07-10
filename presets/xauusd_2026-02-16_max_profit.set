@@ -1,0 +1,225 @@
+﻿; ProfitTrailBot XAUUSD preset tuned for current high-volatility trend regime
+; Date context: 2026-02-16
+; Scope: full input surface (all input parameters explicitly set)
+
+; ===== Symbol Universe =====
+Symbols_List=XAUUSD
+Trade_Only_Chart_Symbol=true
+
+; ===== Current Runtime Strategy =====
+Gate_Profile_Input=0
+Risk_Tier_Profile_Input=0
+Enable_Custom_Gate_Overrides=true
+Enable_Custom_Risk_Tier_Overrides=true
+Disable_All_Gating_Master_Switch=true
+Kill_Switch_Mode=3
+Enable_Spread_Gates=false
+Enable_Session_Gates=false
+Enable_Exposure_Gates=true
+Enable_Economic_Calendar_Filter=false
+Allow_Neutral_Trend_Trading=true
+AI_Allow_Relaxed_TieBreak=true
+Strategy_Mix=7
+Enable_KImaniz_Strategy=true
+
+; ===== Strategy Timeframes & Filters =====
+Signal_TF=15
+Primary_TF=16388
+Confirm_TF=16385
+Trend_TF=16408
+Allow_Range_Trading=true
+Require_All_TF_Agreement=false
+Enable_Confluence_Check=false
+Enable_HTF_Bias_Check=false
+Use_Trend_Filter=false
+Use_ADX_For_Trend=false
+Trend_Lookback_Bars=64
+Strong_Trend_ADX_Level=28.0
+Weak_Trend_ADX_Level=20.0
+
+; ===== ICT Structure Detection =====
+Order_Block_Lookback=340
+Order_Block_Swing_Range=4
+Order_Block_Confirmation=1
+Min_Order_Block_Size=0.20
+Use_Advanced_OB_Detection=true
+OB_Max_Proximity_Pct=5.0
+Use_FVG_Detection=true
+Min_FVG_Size_Ratio=0.05
+FVG_Lookback_Bars=85
+
+; ===== Signal Gating Controls =====
+Require_FVG_For_Trade=false
+Require_BOS_Confirmation=false
+Require_First_Retracement_After_BOS=false
+Allow_Opposing_Reversal_Trades=true
+Enable_ICT_Smart_Entry_Validation=false
+Enable_Entry_Distance_Validation=false
+Enable_Max_Risk_Distance_Validation=false
+Enable_Soft_Structural_Gating=false
+Max_Soft_Gate_Failures=1
+Soft_Gate_Min_HTF_Bias_Score=3
+Soft_Gate_Extra_RR=0.15
+Max_Entry_Distance_Relaxed_Cap=3.00
+
+; ===== Execution Pipeline =====
+Signal_Check_Seconds=1
+Signal_Cadence_Mode=2
+Signal_Cooldown_Bars=0
+Housekeeping_Interval_Seconds=1
+Housekeeping_Bar_Interval=1
+ATR_Handle_Validate_Bars=10
+Magic_Base=910000
+Max_Spread_Pips=65
+Execution_Max_Slippage_Pips=50.0
+Max_Retry_Attempts=10
+Retry_Interval_Seconds=1
+Max_Queued_Signal_Age_Minutes=120
+
+; ===== Institutional Signal Scoring Engine =====
+Execution_Score_Threshold=40.0
+Scoring_Precheck_Buffer=8.0
+Scoring_Enable_Adaptive_Model=true
+Scoring_Weight_Trend=20.0
+Scoring_Weight_Momentum=14.0
+Scoring_Weight_Volatility=13.0
+Scoring_Weight_Structure=16.0
+Scoring_Weight_Alignment=7.0
+Scoring_Weight_Confirmation=12.0
+Scoring_Weight_RiskReward=9.0
+Scoring_Weight_EntryQuality=6.0
+Scoring_Weight_Spread=2.0
+Scoring_Weight_Regime=1.0
+Scoring_Normalize_Weights=true
+Scoring_Target_Weight_Sum=100.0
+Scoring_Enforce_Unique_Weights=true
+Scoring_Unique_Min_Delta=0.30
+Scoring_Adaptive_Threshold_Boost=14.0
+Scoring_Adaptive_Risk_Weight_Boost=0.40
+Scoring_Adaptive_Opp_Weight_Cut=0.30
+
+; ===== Orders & Position Management =====
+Use_Pending_Orders=false
+Enable_Pending_Breakout_Variant=true
+Max_Entry_Distance_Pct=3.00
+Enable_Trailing_Stop=true
+Enable_Partial_Close=true
+Require_BE_Before_Partial=true
+Breakeven_RR=0.9
+Partial_Close_RR=2.20
+
+; ===== Risk Management Core =====
+Risk_Percent=1.00
+Final_Per_Trade_Risk_Cap_Pct=0.0
+Min_RR_Ratio=1.00
+Max_Concurrent_Trades=20
+Max_Trades_Per_Day=50
+ProfitTargetToClose=0.0
+DrawdownLimitToClose=0.0
+ProfitTarget_Reenter_Trade=true
+ProfitTarget_Halt_Bot=false
+ProfitTarget_Reentry_Expiry_Minutes=180
+Max_Daily_Drawdown_Pct=10.0
+Max_Account_Drawdown_Pct=30.0
+Critical_Drawdown_Pct=50.0
+
+; ===== Institutional Risk Controls =====
+Enable_Institutional_Risk=false
+Risk_Use_Equity=true
+Max_Open_Risk_Pct=100.0
+Max_Symbol_Risk_Pct=100.0
+Max_Margin_Usage_Pct=0.0
+Min_Margin_Level_Pct=0.0
+Max_Consecutive_Losses=0
+Loss_Cooldown_Minutes=0
+Skip_MinLot_Overrisk=true
+Enable_Abnormal_Market_Pause=false
+Abnormal_Spread_Spike_Threshold=3
+Abnormal_Market_Pause_Minutes=20
+
+; ===== Volatility & ATR Model =====
+ATR_Period=18
+ATR_SL_Multiplier=2.0
+ATR_TP_Multiplier=4.4
+Enable_Volatility_Adjustment=true
+Volatility_Lookback_Short=8
+Volatility_Lookback_Long=80
+Max_Volatility_Adjustment_Factor=2.4
+
+; ===== Session & Activity Monitoring =====
+Use_Session_Filter=false
+London_Session_Start=7.0
+London_Session_End=11.8
+NewYork_Session_Start=12.5
+NewYork_Session_End=16.8
+Drought_Alert_Minutes=45
+Drought_Log_Interval=10
+
+; ===== Institutional Feature Toggles =====
+Enable_All_Institutional_Filters_Input=false
+Enable_Dashboard=true
+Enable_Adaptive_Risk=false
+
+; ===== Live Risk Profiles =====
+Live_Risk_Profile=0
+Live_Profile_Apply_In_Tester=false
+
+; ===== Strategy Tester Presets =====
+ICT_Sweep_Preset=0
+ICT_Apply_Preset_In_Tester_Only=true
+
+; ===== AI Training Export =====
+Enable_AI_Training_Export=false
+AI_Training_Export_Bars=20000
+AI_Training_Export_File=ptb_training.db
+Enable_AI_Continuous_Training_Export=false
+AI_Continuous_Training_File=ptb_training.db
+AI_Use_Common_Files=true
+
+; ===== AI Trend Prediction Module =====
+Enable_AI_Trend_Predictor=true
+AI_Signal_Generation_Mode=1
+AI_Trend_Confidence=2
+AI_Use_Enhanced_Targets=true
+AI_Use_Risk_Adjustment=true
+AI_Require_Agreement=false
+Enable_External_AI=true
+External_AI_Mode=0
+Enable_AI_Scaler=true
+Enable_AI_Model_HotReload=true
+AI_Model_HotReload_Check_Seconds=30
+AI_Buy_Confidence_Threshold=0.50
+AI_Sell_Confidence_Threshold=0.40
+AI_Low_Confidence_Threshold=0.55
+AI_Neutral_Band=0.04
+
+; ===== Reversal Detection Module =====
+Enable_Reversal_Detection=false
+Reversal_Min_Confidence=0.68
+Reversal_Require_Divergence=true
+Reversal_Use_Structure_Break=true
+Reversal_Lookback_Bars=24
+Reversal_Exhaustion_RSI_Level=78.0
+Reversal_Divergence_Threshold=0.75
+Reversal_Momentum_Shift_Threshold=0.35
+Reversal_Override_Direction=false
+Reversal_Weight_In_Scoring=0.15
+
+; ===== Alerts & Diagnostics =====
+Enable_Backtest_Mode=false
+Enable_Email_Alerts=false
+Enable_Telegram_Alerts=false
+Enable_Drawdown_Alerts=true
+Telegram_Token=
+Telegram_Chat_ID=
+Enable_Institutional_Debug=false
+
+; ===== Logging Verbosity =====
+Log_Level=3
+
+; ===== Current GOLD Min-Lot Fit =====
+ICT_Max_Risk_ATR_Multiple=0.0
+KImaniz_Max_Risk_ATR_Multiple=0.0
+PerTrade_Drawdown_Pct=0.0
+PerTrade_Drawdown_Min_Hold_Seconds=420
+PerTrade_Drawdown_Min_Loss_Currency=1.00

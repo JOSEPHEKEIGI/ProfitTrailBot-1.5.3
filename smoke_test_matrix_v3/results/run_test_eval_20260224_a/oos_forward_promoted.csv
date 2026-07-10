@@ -1,0 +1,2 @@
+"id","profile","notes","Decision","Reason","IsScore","OosScore","ForwardScore","IsProfitFactor","OosProfitFactor","ForwardProfitFactor","IsMaxDDPct","OosMaxDDPct","ForwardMaxDDPct","IsTrades","OosTrades","ForwardTrades","IsPass","OosPass","ForwardPass","ScoreDrift_IS_to_OOS","ScoreDrift_OOS_to_FORWARD","PFRetention_IS_to_OOS","PFRetention_OOS_to_FORWARD"
+"A01","best_balanced","Primary recommendation","PROMOTE","Passed IS/OOS/FORWARD gates","76.28","72.38","69.37","1.95","1.92","1.86","6","7","7.4","180","170","160","True","True","True","3.9","3.01","0.985","0.969"

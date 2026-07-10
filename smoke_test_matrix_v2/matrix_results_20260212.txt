@@ -1,0 +1,33 @@
+﻿MT5 Smoke Matrix Run: 2026-02-12 00:24:50 +03:00
+
+=== normal_flow ===
+exit_code=0
+changed_log_files=2
+verdict=unknown
+init_failed=False profit_target=False drawdown=False halting_bot=False reentry=False
+final_balance=False test_passed=False
+signal_stats generated= valid= executed=
+key_lines:
+(none)
+
+=== profit_target_hit ===
+exit_code=0
+changed_log_files=2
+verdict=unknown
+init_failed=False profit_target=False drawdown=False halting_bot=False reentry=False
+final_balance=False test_passed=False
+signal_stats generated= valid= executed=
+key_lines:
+(none)
+
+=== drawdown_hit ===
+exit_code=0
+changed_log_files=2
+verdict=unknown
+init_failed=False profit_target=False drawdown=False halting_bot=False reentry=False
+final_balance=False test_passed=False
+signal_stats generated= valid= executed=
+key_lines:
+(none)
+
+

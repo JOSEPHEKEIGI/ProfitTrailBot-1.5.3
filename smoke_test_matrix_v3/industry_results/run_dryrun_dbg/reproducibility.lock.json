@@ -1,0 +1,44 @@
+﻿{
+    "generated_utc":  "2026-02-24T19:58:56Z",
+    "run_label":  "dryrun_dbg",
+    "framework_script":  {
+                             "path":  "smoke_test_matrix_v3/run_industry_oos_forward.ps1",
+                             "sha256":  "E6FFCB25EC7C703C2E4505D5D12D1B3B12C4EA027A262BE41167A74A4E3120E5"
+                         },
+    "config":  {
+                   "path":  "smoke_test_matrix_v3/industry_framework_config.json",
+                   "sha256":  "85AF1F1034D86FFC906D86A109810892E25540060502D4800D08620A9B2ECFD1"
+               },
+    "inputs":  [
+                   {
+                       "path":  "smoke_test_matrix_v3/matrix_candidates.csv",
+                       "sha256":  "61B81257451F490A36E7F4E0BF6756C04C18DFC8FEB8A452FE5D735CCD828494"
+                   },
+                   {
+                       "path":  "smoke_test_matrix_v3/_tmp_industry_fixture/is.csv",
+                       "sha256":  "4D50E5988EEE42C4A574B8A17EE6E74FB5EF4BEA1F979E706B4C25AB3CDCE5D3"
+                   },
+                   {
+                       "path":  "smoke_test_matrix_v3/_tmp_industry_fixture/oos.csv",
+                       "sha256":  "6F95D3F62F1F8A523C25201E1AC5AC977D8AE2390F74C6285BBDF9248614D725"
+                   },
+                   {
+                       "path":  "smoke_test_matrix_v3/_tmp_industry_fixture/forward.csv",
+                       "sha256":  "5C1A61F475F3CE98F967507891E4ABEDACCECE6328C6F1FF356DFA8C0FC9EB7A"
+                   }
+               ],
+    "environment":  {
+                        "powershell":  "5.1.19041.6392",
+                        "edition":  "Desktop",
+                        "os":  "Microsoft Windows NT 10.0.19045.0",
+                        "machine":  "DESKTOP-41Q9QBQ"
+                    },
+    "outputs":  [
+                    "decision_board.csv",
+                    "phase_coverage.csv",
+                    "issues.md",
+                    "promotion_packet.json",
+                    "reproducibility.lock.json",
+                    "summary.md"
+                ]
+}

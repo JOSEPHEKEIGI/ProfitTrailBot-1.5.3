@@ -1,0 +1,121 @@
+﻿{
+  "framework_version": "1.0.0",
+  "symbol": "GOLD",
+  "timeframe": "M15",
+  "windows": {
+    "in_sample": {
+      "from": "2024-02-25",
+      "to": "2025-06-30"
+    },
+    "oos": {
+      "from": "2025-07-01",
+      "to": "2025-12-31"
+    },
+    "forward": {
+      "from": "2026-01-01",
+      "to": "2026-02-24"
+    }
+  },
+  "hard_gates": {
+    "profit_factor_min": 1.25,
+    "recovery_factor_min": 1.4,
+    "expected_payoff_min": 0.0,
+    "max_drawdown_pct_max": 12.0,
+    "trades_min": 40,
+    "trades_max": 600,
+    "risk_percent_max": 1.2,
+    "min_rr_ratio_min": 1.5
+  },
+  "score_normalization": {
+    "profit_factor_min": 1.2,
+    "profit_factor_max": 2.2,
+    "drawdown_best": 3.0,
+    "drawdown_worst": 12.0,
+    "recovery_factor_min": 1.0,
+    "recovery_factor_max": 5.0,
+    "net_profit_pct_target": 30.0,
+    "expected_payoff_target": 10.0,
+    "trades_target": 180.0,
+    "sharpe_target": 2.0,
+    "rr_min": 1.4,
+    "rr_max": 2.4,
+    "risk_best": 0.3,
+    "risk_worst": 1.2,
+    "spread_best": 20.0,
+    "spread_worst": 55.0
+  },
+  "score_weights": {
+    "profit_factor": 15.0,
+    "drawdown": 15.0,
+    "recovery_factor": 12.0,
+    "net_profit_pct": 10.0,
+    "expected_payoff": 10.0,
+    "trades": 8.0,
+    "sharpe": 8.0,
+    "rr_input": 8.0,
+    "risk_pct": 8.0,
+    "spread": 6.0
+  },
+  "aggregation": {
+    "min_runs_per_phase": 1,
+    "score_quantile": 0.25,
+    "pf_quantile": 0.25,
+    "dd_quantile": 0.75,
+    "trades_quantile": 0.5,
+    "pass_rate_quantile": 0.5
+  },
+  "promotion_gates": {
+    "is_min_score": 70.0,
+    "oos_min_score": 65.0,
+    "forward_min_score": 65.0,
+    "oos_min_profit_factor": 1.2,
+    "forward_min_profit_factor": 1.15,
+    "oos_max_drawdown_pct": 12.0,
+    "forward_max_drawdown_pct": 12.0,
+    "min_pf_retention_is_to_oos": 0.8,
+    "min_pf_retention_oos_to_forward": 0.8,
+    "max_score_drift_is_to_oos": 20.0,
+    "max_score_drift_oos_to_forward": 20.0,
+    "min_phase_pass_rate": 0.5
+  },
+  "watchlist_margin": {
+    "score": 5.0,
+    "profit_factor": 0.05,
+    "drawdown_pct": 1.0
+  },
+  "matching_fields": [
+    "Risk_Percent",
+    "Min_RR_Ratio",
+    "Strategy_Routing_Mode",
+    "AI_Signal_Generation_Mode",
+    "AI_Trend_Confidence",
+    "AI_Buy_Confidence_Threshold",
+    "AI_Sell_Confidence_Threshold",
+    "AI_Neutral_Band",
+    "Require_All_TF_Agreement",
+    "Enable_Confluence_Check",
+    "Require_FVG_For_Trade",
+    "Require_BOS_Confirmation",
+    "Require_First_Retracement_After_BOS",
+    "Signal_Cooldown_Bars",
+    "Max_Spread_Pips",
+    "Max_Concurrent_Trades",
+    "Max_Trades_Per_Day",
+    "Use_Session_Filter",
+    "Enable_All_Institutional_Filters_Input"
+  ],
+  "column_aliases": {
+    "id": ["id", "ID", "candidate_id", "CandidateId"],
+    "profit_factor": ["Profit Factor", "ProfitFactor"],
+    "recovery_factor": ["Recovery Factor", "RecoveryFactor"],
+    "expected_payoff": ["Expected Payoff", "ExpectedPayoff"],
+    "max_drawdown_pct": ["Maximal Drawdown %", "Max Drawdown %", "Drawdown %", "MaxDDPct"],
+    "trades": ["Trades", "Total Trades"],
+    "sharpe": ["Sharpe Ratio", "SharpeRatio"],
+    "net_profit": ["Profit", "Net Profit", "NetProfit"],
+    "initial_deposit": ["Initial Deposit", "Deposit", "InitialBalance"],
+    "min_rr_ratio": ["Min_RR_Ratio", "Min RR Ratio", "MinRRRatio"],
+    "risk_percent": ["Risk_Percent", "Risk Percent", "RiskPercent"],
+    "max_spread_pips": ["Max_Spread_Pips", "Max Spread Pips", "MaxSpreadPips"]
+  }
+}

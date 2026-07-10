@@ -1,0 +1,63 @@
+﻿{
+    "generated_utc":  "2026-02-25T03:53:22Z",
+    "run_label":  "20260225_065321",
+    "thresholds":  {
+                       "execution_threshold":  73,
+                       "is_min_score":  70,
+                       "oos_min_score":  65,
+                       "forward_min_score":  65,
+                       "oos_min_profit_factor":  1.2,
+                       "forward_min_profit_factor":  1.15,
+                       "max_drawdown_pct":  12
+                   },
+    "match_fields":  [
+                         "Risk_Percent",
+                         "Min_RR_Ratio",
+                         "Strategy_Routing_Mode",
+                         "AI_Signal_Generation_Mode",
+                         "AI_Trend_Confidence",
+                         "AI_Buy_Confidence_Threshold",
+                         "AI_Sell_Confidence_Threshold",
+                         "AI_Neutral_Band",
+                         "Require_All_TF_Agreement",
+                         "Enable_Confluence_Check",
+                         "Require_FVG_For_Trade",
+                         "Require_BOS_Confirmation",
+                         "Require_First_Retracement_After_BOS",
+                         "Signal_Cooldown_Bars",
+                         "Max_Spread_Pips",
+                         "Max_Concurrent_Trades",
+                         "Max_Trades_Per_Day",
+                         "Use_Session_Filter",
+                         "Enable_All_Institutional_Filters_Input"
+                     ],
+    "input_files":  [
+                        {
+                            "path":  "./smoke_test_matrix_v3/_tmp_industry_fixture/is.csv",
+                            "sha256":  "4D50E5988EEE42C4A574B8A17EE6E74FB5EF4BEA1F979E706B4C25AB3CDCE5D3"
+                        },
+                        {
+                            "path":  "./smoke_test_matrix_v3/_tmp_industry_fixture/oos.csv",
+                            "sha256":  "6F95D3F62F1F8A523C25201E1AC5AC977D8AE2390F74C6285BBDF9248614D725"
+                        },
+                        {
+                            "path":  "./smoke_test_matrix_v3/_tmp_industry_fixture/forward.csv",
+                            "sha256":  "5C1A61F475F3CE98F967507891E4ABEDACCECE6328C6F1FF356DFA8C0FC9EB7A"
+                        },
+                        {
+                            "path":  "smoke_test_matrix_v3/matrix_candidates.csv",
+                            "sha256":  "A3699CC5CED42121A5BE4A0FE6A362E948C435F7E1DFDA455109432F53C5DDB1"
+                        }
+                    ],
+    "unmatched_rows":  {
+                           "in_sample":  0,
+                           "oos":  0,
+                           "forward":  0
+                       },
+    "output_files":  [
+                         "oos_forward_ranked.csv",
+                         "oos_forward_promoted.csv",
+                         "summary.md",
+                         "manifest.json"
+                     ]
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "symbol": "GOLD",
+  "timeframe": "M15",
+  "windows": {
+    "in_sample": {
+      "from": "2024-02-25",
+      "to": "2025-06-30"
+    },
+    "oos": {
+      "from": "2025-07-01",
+      "to": "2025-12-31"
+    },
+    "forward": {
+      "from": "2026-01-01",
+      "to": "2026-02-24"
+    }
+  },
+  "promotion_gates": {
+    "is_min_score": 70.0,
+    "oos_min_score": 65.0,
+    "forward_min_score": 65.0,
+    "oos_min_profit_factor": 1.2,
+    "forward_min_profit_factor": 1.15,
+    "max_drawdown_pct": 12.0
+  }
+}

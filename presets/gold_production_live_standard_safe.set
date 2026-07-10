@@ -1,0 +1,156 @@
+﻿; ProfitTrailBot production preset for GOLD live trading
+; Date context: 2026-04-22
+; Goal: explicit live gates ON, TF_STANDARD aligned, safe live risk caps,
+; and AI scaler validated for external AI startup.
+
+; ===== Symbol / Attachment =====
+Symbols_List=GOLD
+Trade_Only_Chart_Symbol=true
+
+; ===== Global Profile Selectors =====
+Gate_Profile_Input=0
+Risk_Tier_Profile_Input=0
+Timeframe_Preset_Input=1
+Enable_Custom_Gate_Overrides=true
+Enable_Custom_Risk_Tier_Overrides=true
+Enable_Custom_Timeframe_Overrides=false
+
+; ===== Strategy Routing =====
+Strategy_Mix=7
+Allow_AI_Fallback_In_BOTH_Mode=false
+Allow_ICT_Fallback_In_BOTH_Mode=true
+Enable_Auto_Regime_Router=false
+Use_Institutional_Strategy_Director=false
+Enable_KImaniz_Strategy=true
+Enable_Reversal_Detection=false
+
+; ===== Timeframe Alignment =====
+Signal_TF=15
+Primary_TF=16388
+Confirm_TF=16385
+Trend_TF=16408
+
+; ===== Master Safety =====
+Disable_All_Gating_Master_Switch=true
+Kill_Switch_Mode=3
+Enable_All_Institutional_Filters_Input=false
+Enable_Institutional_Risk=false
+Enable_Adaptive_Risk=false
+Enable_Spread_Gates=false
+Enable_Session_Gates=false
+Enable_Exposure_Gates=true
+Enable_Economic_Calendar_Filter=false
+Enable_Strategy_DryRun_On_TradeBlock=true
+Disable_Abnormal_Market_Pause_For_Diagnostics=false
+Enable_Audit_Log=true
+
+; ===== Live Risk Profile =====
+Live_Risk_Profile=0
+Live_Profile_Apply_In_Tester=false
+
+; ===== Core Risk Budget =====
+Risk_Percent=1.00
+Final_Per_Trade_Risk_Cap_Pct=0.0
+Max_Concurrent_Trades=20
+Max_Trades_Per_Day=50
+Max_Open_Risk_Pct=100.0
+Max_Symbol_Risk_Pct=100.0
+Max_Margin_Usage_Pct=0.0
+Min_Margin_Level_Pct=0.0
+Skip_MinLot_Overrisk=true
+
+; ===== Drawdown Controls =====
+DrawdownLimitToClose=0.0
+PerTrade_Drawdown_Pct=0.0
+PerTrade_Drawdown_Min_Hold_Seconds=420
+PerTrade_Drawdown_Min_Loss_Currency=1.00
+Max_Daily_Drawdown_Pct=10.0
+Max_Account_Drawdown_Pct=30.0
+Critical_Drawdown_Pct=50.0
+
+; ===== Loss Streak Circuit Breakers =====
+Max_Consecutive_Losses=0
+Loss_Cooldown_Minutes=0
+Enable_Symbol_Loss_Circuit_Breaker=false
+Symbol_Loss_Streak_Threshold=2
+Symbol_Loss_Streak_Window_Minutes=90
+Symbol_Loss_Cooldown_Minutes=240
+
+; ===== Queue / Execution Hygiene =====
+Signal_Check_Seconds=1
+Signal_Cadence_Mode=2
+Signal_Cooldown_Bars=0
+Max_Queued_Signal_Age_Minutes=120
+Retry_Interval_Seconds=1
+Max_Retry_Attempts=10
+Execution_Score_Threshold=40.0
+Use_Pending_Orders=false
+Enable_Pending_Breakout_Variant=false
+Max_Entry_Distance_Pct=3.00
+Max_Entry_Distance_Relaxed_Cap=3.00
+Enable_Execution_Latency_Guard=true
+Max_Tick_Age_Seconds=30
+Enable_Smart_Order_Routing=true
+Execution_Max_Slippage_Pips=50.0
+
+; ===== Spread / Session Gates =====
+Use_Session_Filter=false
+Max_Spread_Pips=65
+Enable_Abnormal_Market_Pause=false
+Abnormal_Spread_Spike_Threshold=3
+Abnormal_Market_Pause_Minutes=30
+
+; ===== Strategy Safety Rails =====
+Allow_Range_Trading=true
+Allow_Neutral_Trend_Trading=true
+Require_All_TF_Agreement=false
+Use_Trend_Filter=false
+Enable_Confluence_Check=false
+Enable_HTF_Bias_Check=false
+ICT_Forward_Trend_Only=false
+Allow_Opposing_Reversal_Trades=true
+Enable_Soft_Structural_Gating=false
+Require_FVG_For_Trade=false
+Require_BOS_Confirmation=false
+Require_First_Retracement_After_BOS=false
+Enable_Entry_Distance_Validation=false
+Enable_Max_Risk_Distance_Validation=false
+ICT_Max_Risk_ATR_Multiple=0.0
+KImaniz_Max_Risk_ATR_Multiple=0.0
+Min_RR_Ratio=1.00
+Partial_Close_RR=1.00
+ATR_TP_Multiplier=4.40
+
+; ===== Suitability Hunt Profile =====
+Suitability_Hunt_Mode=2
+Suitability_Allow_CrossRole_Fallbacks=true
+Suitability_Trend_Require_Confluence_On_Weak_Bias=true
+Suitability_Weak_Bias_MaxScore=4
+Suitability_High_Volatility_Factor=1.35
+
+; ===== AI Stack =====
+Enable_AI_Trend_Predictor=true
+AI_Signal_Generation_Mode=1
+AI_Trend_Confidence=2
+AI_Use_Enhanced_Targets=true
+AI_Use_Risk_Adjustment=true
+AI_Require_Agreement=false
+AI_Allow_Relaxed_TieBreak=true
+Enable_External_AI=true
+External_AI_Mode=0
+Enable_AI_Scaler=true
+Enable_AI_Model_HotReload=true
+AI_Model_HotReload_Check_Seconds=30
+Enable_AI_MTF_Regime_Filter=false
+AI_Min_Aligned_Structures=1
+AI_Max_Opposing_Structures=2
+AI_Min_Directional_Edge=0.0
+AI_Enable_EV_Filter=false
+AI_Min_Expected_Value_R=0.0
+AI_Max_Spread_to_ATR=1.00
+Enable_AI_Candle_Quality_Filter=false
+
+; ===== Diagnostics =====
+Enable_Backtest_Mode=false
+Enable_Drawdown_Alerts=true
+Log_Level=3

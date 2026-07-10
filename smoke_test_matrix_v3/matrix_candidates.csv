@@ -1,0 +1,13 @@
+﻿id,profile,Risk_Percent,Min_RR_Ratio,Strategy_Routing_Mode,AI_Signal_Generation_Mode,AI_Trend_Confidence,AI_Buy_Confidence_Threshold,AI_Sell_Confidence_Threshold,AI_Neutral_Band,Require_All_TF_Agreement,Enable_Confluence_Check,Require_FVG_For_Trade,Require_BOS_Confirmation,Require_First_Retracement_After_BOS,Signal_Cooldown_Bars,Max_Spread_Pips,Max_Concurrent_Trades,Max_Trades_Per_Day,Use_Session_Filter,Enable_All_Institutional_Filters_Input,notes
+A01,best_balanced,0.70,1.90,0,1,2,0.58,0.58,0.05,false,true,true,true,false,1,45,2,5,true,true,Primary recommendation
+A02,quality_strict,0.60,2.00,3,1,3,0.60,0.60,0.04,true,true,true,true,true,2,40,1,4,true,true,Max quality/both confluence
+A03,ai_forward,0.75,1.80,2,1,2,0.56,0.56,0.05,false,true,true,true,false,1,45,2,6,true,true,AI-only moderate confidence
+A04,ict_guarded,0.75,1.90,1,0,2,0.58,0.58,0.05,false,true,true,true,false,1,45,2,5,true,true,ICT-only with strong filters
+A05,drawdown_min,0.50,2.10,3,1,3,0.62,0.62,0.04,true,true,true,true,true,2,35,1,3,true,true,Lowest risk variant
+A06,throughput_safe,0.85,1.75,0,1,2,0.55,0.55,0.06,false,true,true,true,false,1,50,2,7,true,true,Slightly higher trade flow
+A07,spread_hardened,0.70,1.90,0,1,2,0.58,0.58,0.05,false,true,true,true,false,1,35,2,5,true,true,Tighter spread tolerance
+A08,session_focused,0.70,1.90,0,1,2,0.58,0.58,0.05,false,true,true,true,false,1,45,2,4,true,true,Use narrow session windows
+A09,cooldown_strict,0.65,2.00,0,1,2,0.60,0.60,0.04,false,true,true,true,false,3,40,1,4,true,true,Avoid clustering entries
+A10,reversal_assist,0.70,1.85,0,1,2,0.57,0.57,0.05,false,true,true,true,false,1,45,2,5,true,true,Use reversal module as confirmation
+A11,adaptive_vol,0.75,1.85,0,1,2,0.58,0.58,0.05,false,true,true,true,false,1,45,2,5,true,true,Volatility adaptive focus
+A12,oos_candidate,0.70,1.90,0,1,2,0.59,0.59,0.05,false,true,true,true,false,1,45,2,5,true,true,Preferred for out-of-sample

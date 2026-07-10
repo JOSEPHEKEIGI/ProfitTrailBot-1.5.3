@@ -1,0 +1,114 @@
+﻿; ProfitTrailBot moderate-conservative preset
+; Goal: lower frequency than aggressive profiles, but looser than strict conservative defaults.
+; Import this file in MT5 Strategy Tester/EA inputs.
+
+; ===== Max Trade Throughput Overrides =====
+Gate_Profile_Input=0
+Risk_Tier_Profile_Input=0
+Enable_Custom_Gate_Overrides=true
+Enable_Custom_Risk_Tier_Overrides=true
+Disable_All_Gating_Master_Switch=true
+Kill_Switch_Mode=3
+Enable_Spread_Gates=false
+Enable_Session_Gates=false
+Enable_Exposure_Gates=true
+Enable_Economic_Calendar_Filter=false
+Use_Pending_Orders=false
+Max_Tick_Age_Seconds=30
+Max_Queued_Signal_Age_Minutes=120
+Max_Margin_Usage_Pct=0.0
+Min_Margin_Level_Pct=0.0
+Skip_MinLot_Overrisk=true
+Allow_Neutral_Trend_Trading=true
+AI_Allow_Relaxed_TieBreak=true
+Enable_AI_MTF_Regime_Filter=false
+AI_Min_Aligned_Structures=1
+AI_Max_Opposing_Structures=2
+AI_Min_Directional_Edge=0.0
+AI_Enable_EV_Filter=false
+AI_Min_Expected_Value_R=0.0
+AI_Max_Spread_to_ATR=1.00
+AI_Low_Confidence_Extra_RR=0.0
+Enable_AI_Candle_Quality_Filter=false
+AI_Candle_Min_Quality_Score=0.0
+
+; ===== Strategy Timeframes & Filters =====
+Allow_Range_Trading=true
+Require_All_TF_Agreement=false
+Enable_Confluence_Check=false
+Enable_HTF_Bias_Check=false
+Use_Trend_Filter=false
+
+; ===== Signal Gating Controls =====
+Strategy_Mix=7
+Enable_KImaniz_Strategy=true
+Require_FVG_For_Trade=false
+Require_BOS_Confirmation=false
+Require_First_Retracement_After_BOS=false
+Allow_Opposing_Reversal_Trades=true
+Enable_ICT_Smart_Entry_Validation=false
+Enable_Entry_Distance_Validation=false
+Enable_Max_Risk_Distance_Validation=false
+Enable_Soft_Structural_Gating=false
+
+; ===== Execution Pipeline =====
+Signal_Check_Seconds=1
+Signal_Cadence_Mode=2
+Signal_Cooldown_Bars=0
+Max_Spread_Pips=65
+Execution_Max_Slippage_Pips=50.0
+Max_Retry_Attempts=10
+Retry_Interval_Seconds=1
+
+; ===== Orders & Position Management =====
+Enable_Pending_Breakout_Variant=false
+Max_Entry_Distance_Pct=3.00
+Max_Entry_Distance_Relaxed_Cap=3.00
+
+; ===== Risk Management Core =====
+Risk_Percent=1.00
+Final_Per_Trade_Risk_Cap_Pct=0.0
+Min_RR_Ratio=1.00
+Max_Concurrent_Trades=20
+Max_Trades_Per_Day=50
+PerTrade_Drawdown_Pct=0.0
+PerTrade_Drawdown_Min_Hold_Seconds=420
+PerTrade_Drawdown_Min_Loss_Currency=1.00
+
+; ===== Institutional Risk Controls =====
+Enable_Institutional_Risk=false
+Max_Open_Risk_Pct=100.0
+Max_Symbol_Risk_Pct=100.0
+Max_Consecutive_Losses=0
+Loss_Cooldown_Minutes=0
+
+; ===== Session & Activity Monitoring =====
+Use_Session_Filter=false
+London_Session_Start=8.0
+London_Session_End=11.5
+NewYork_Session_Start=13.0
+NewYork_Session_End=16.5
+
+; ===== Institutional Feature Toggles =====
+Enable_All_Institutional_Filters_Input=false
+Enable_Dashboard=true
+Enable_Adaptive_Risk=false
+
+; ===== Live Risk Profiles =====
+Live_Risk_Profile=0
+Live_Profile_Apply_In_Tester=false
+
+; ===== AI Trend Prediction Module =====
+AI_Signal_Generation_Mode=1
+AI_Trend_Confidence=2
+AI_Require_Agreement=false
+AI_Buy_Confidence_Threshold=0.50
+AI_Sell_Confidence_Threshold=0.40
+AI_Low_Confidence_Threshold=0.55
+AI_Neutral_Band=0.05
+
+; ===== Current GOLD Min-Lot Fit =====
+ICT_Max_Risk_ATR_Multiple=0.0
+KImaniz_Max_Risk_ATR_Multiple=0.0
+Partial_Close_RR=1.00
+ATR_TP_Multiplier=4.40

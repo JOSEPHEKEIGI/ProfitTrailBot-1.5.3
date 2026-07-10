@@ -1,0 +1,4 @@
+﻿id,Profit Factor,Recovery Factor,Expected Payoff,Maximal Drawdown %,Trades,Sharpe Ratio,Profit,Initial Deposit,Min_RR_Ratio,Risk_Percent,Max_Spread_Pips
+A01,1.86,2.70,10.0,7.4,160,1.80,300,1000,1.90,0.70,32
+A01,1.82,2.60,9.5,7.6,158,1.78,280,1000,1.90,0.70,33
+A02,1.27,1.40,0.7,11.5,92,1.00,80,1000,2.00,0.60,40
