@@ -3112,7 +3112,13 @@ double GetAIDirectionalMinProbability(int direction, string symbol, int symbol_i
    if(direction == 1)
       min_prob = adaptive_thresh.buy_threshold;  // Uses adaptive threshold
    else if(direction == -1)
-      min_prob = adaptive_thresh.sell_threshold; // Uses adaptive threshold
+      // adaptive_thresh.sell_threshold is a LOW level on the buy-probability axis
+      // (0.25-0.45: "buy prob below this => sell"). Here we gate the SELL-side
+      // directional probability, where HIGHER means a stronger sell. Using the raw
+      // sell_threshold made the SELL entry bar (~0.45) far lower than the BUY bar
+      // (buy_threshold ~0.55-0.75), biasing the bot toward sells. Mirror it so both
+      // sides require comparable conviction.
+      min_prob = 1.0 - adaptive_thresh.sell_threshold;
    else
       min_prob = 0.50; // Neutral
    
